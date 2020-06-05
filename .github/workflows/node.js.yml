@@ -25,17 +25,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: install
-    - run: npm i
+    - name: install Dependencies
+      run: npm i
 
-    - name: build
-    - run: npm run build:weapp
+    - name: build weapp
+      run: npm run build:weapp
 
     # see Project/Settings/Secrets
     - name: generate pkp
-    - run: echo "$UPLOAD_PRIVATE_KEY" > private.key
+      run: echo "$UPLOAD_PRIVATE_KEY" > private.key
       env:
         UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
 
     - name: upload
-    - run: npx mp-ci upload ./ --pkp=./private.key --no-test
+      run: npx mp-ci upload ./ --pkp=./private.key --no-test
