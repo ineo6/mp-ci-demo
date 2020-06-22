@@ -25,17 +25,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: install Dependencies
+    - name: Install Dependencies
       run: npm i
 
-    - name: build weapp
+    - name: Build weapp
       run: npm run build:weapp
 
     # see Project/Settings/Secrets
-    - name: generate pkp
+    - name: Generate private key for upload
       run: echo "$UPLOAD_PRIVATE_KEY" > private.key
       env:
         UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
 
-    - name: upload
+    - name: Upload to WeChat
       run: npx mp-ci upload ./ --pkp=./private.key --no-test
